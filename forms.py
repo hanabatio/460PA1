@@ -10,7 +10,7 @@ class newUserForm(FlaskForm):
 
 class newBusinessForm(FlaskForm):
     business_id = StringField('Business ID', validators=[DataRequired()])
-    active = BooleanField('Active? Check for Yes', validators=[DataRequired()])
+    active = BooleanField('Active? Check for Yes')
     categories = StringField('Categories', validators=[DataRequired()])
     business_name = StringField('Business Name', validators=[DataRequired()])
     review_count = IntegerField('Review Count', validators=[DataRequired()])

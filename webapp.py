@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, flash, redirect, url_for, request
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.ext.automap import automap_base
 from sqlalchemy.orm import sessionmaker
@@ -25,24 +25,36 @@ s = session()
 def home():
     return render_template('home.html')
 
-@app.route('/business')
+@app.route('/business', methods= ['GET', 'POST'])
 def business():
-    form = newBusinessForm()
+    form = newBusinessForm(request.form)
+    if form.validate_on_submit():
+        flash(f'Business Inserted!','success')
+        return redirect(url_for('home'))
     return render_template('business.html', form=form)
 
-@app.route('/user')
+@app.route('/user', methods= ['GET', 'POST'])
 def user():
-    form = newUserForm()
+    form = newUserForm(request.form)
+    if form.validate_on_submit():
+        flash(f'User Inserted!','success')
+        return redirect(url_for('home'))
     return render_template('user.html', form=form)
 
-@app.route('/checkins')
+@app.route('/checkins', methods= ['GET', 'POST'])
 def checkins():
-    form = newCheckInForm()
+    form = newCheckInForm(request.form)
+    if form.validate_on_submit():
+        flash(f'CheckIn Inserted!','success')
+        return redirect(url_for('home'))
     return render_template('checkins.html', form=form)
 
-@app.route('/reviews')
+@app.route('/reviews', methods= ['GET', 'POST'])
 def reviews():
-    form = newReviewForm()
+    form = newReviewForm(request.form)
+    if form.validate_on_submit():
+        flash(f'Review Inserted!','success')
+        return redirect(url_for('home'))
     return render_template('reviews.html', form=form)
 
 #ten queries
