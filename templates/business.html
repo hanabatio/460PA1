@@ -1,5 +1,43 @@
 {% extends "layout.html" %}
 {% block content %}
 <h1>Businesses</h1>
+<br>
+<div class="content-section">
+    <form method="POST" action="">
+        {{ form.hidden_tag() }}
+        <fieldset class="form-group">
+            <legend class="border-bottom mb-4">Insert New Business</legend>
+            <div class="form-group">
+                {{ form.business_id.label(class="form-control-label") }}
+                {{ form.business_id(class="form-control form-control-lg") }}
+            </div>
+            <div class="form-group">
+                    {{ form.active.label(class="form-control-label") }}
+                    {{ form.active(class="form-control form-control-lg") }}
+            </div>
+            <div class="form-group">
+                    {{ form.categories.label(class="form-control-label") }}
+                    {{ form.categories(class="form-control form-control-lg") }}
+            </div>
+            <div class="form-group">
+                    {{ form.business_name.label(class="form-control-label") }}
+                    {{ form.business_name(class="form-control form-control-lg") }}
+            </div>
+            <div class="form-group">
+                    {{ form.review_count.label(class="form-control-label") }}
+                    {{ form.review_count(class="form-control form-control-lg") }}
+            </div>
+            <div class="form-group">
+                    {{ form.stars.label(class="form-control-label") }}
+                    {{ form.stars(class="form-control form-control-lg") }}
+            </div>   
+        </fieldset>
+        <div class="form-group">
+            {{ form.submit(class= "btn btn-outline-info") }}
+        </div>
 
+    </form>
+
+
+</div>
 {% endblock %}

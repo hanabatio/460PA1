@@ -3,8 +3,10 @@ from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.ext.automap import automap_base
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy import create_engine, Column, String, Integer, Boolean, ForeignKey, Float
+from forms import *
 
 app = Flask(__name__)
+app.config['SECRET_KEY'] = '5791628bb0b13ce0c676dfde280ba245'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///cs460pa1.db'
 db = SQLAlchemy(app)
 
@@ -25,19 +27,23 @@ def home():
 
 @app.route('/business')
 def business():
-    return render_template('business.html')
+    form = newBusinessForm()
+    return render_template('business.html', form=form)
 
 @app.route('/user')
 def user():
-    return render_template('user.html')
+    form = newUserForm()
+    return render_template('user.html', form=form)
 
 @app.route('/checkins')
 def checkins():
-    return render_template('checkins.html')
+    form = newCheckInForm()
+    return render_template('checkins.html', form=form)
 
 @app.route('/reviews')
 def reviews():
-    return render_template('reviews.html')
+    form = newReviewForm()
+    return render_template('reviews.html', form=form)
 
 #ten queries
 @app.route('/q1')
