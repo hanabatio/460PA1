@@ -1,0 +1,71 @@
+class User(Base):
+
+    __tablename__="user"
+
+    userid = Column(String, primary_key=True)
+    name = Column(String)
+    review_count = Column(Integer)
+
+    def __init__(self, userid, name, review_count):
+        self.userid = userid
+        self.name = name
+        self.review_count = review_count
+
+class Business(Base):
+
+    __tablename__="business"
+
+    business_id = Column(String, primary_key=True)
+    isActive = Column(Boolean)
+    categories = Column(String)
+    review_count = Column(Integer)
+    business_name = Column(String)
+    stars = Column(Float)
+
+    def __init__(self, business_id, isActive, categories, review_count, business_name, stars):
+        self.business_id = business_id
+        self.isActive = isActive
+        self.categories = categories
+        self.review_count = review_count
+        self.business_name = business_name
+        self.stars = stars
+
+class Review(Base):
+
+    __tablename__="review"
+
+    review_id = Column(String, primary_key=True)
+    business_id = Column(String, ForeignKey('business_id'))
+    user_id = Column(String, ForeignKey('user_id'))
+    stars = Column(Float)
+    review_text = Column(String)
+
+    def __init__(self, review_id, business_id, userid, stars, review_text):
+        self.review_id = review_id
+        self.userid = userid
+        self.business_id = business_id
+        self.stars = stars
+        self.review_text = review_text
+
+class Checkin(Base):
+
+    __tablename__="checkin"
+
+    business_id = Column(String, ForeignKey('business_id'), primary_key=True)
+    sunday = Column(Integer)
+    monday = Column(Integer)
+    tuesday = Column(Integer)
+    wednesday = Column(Integer)
+    thursday = Column(Integer)
+    friday = Column(Integer)
+    saturday = Column(Integer)
+
+    def __init__(self, business_id, sunday, monday, tuesday, wednesday, thursday, friday, saturday):
+        self.business_id = business_id
+        self.sunday = sunday
+        self.monday = monday
+        self.tuesday = tuesday
+        self.wednesday = wednesday
+        self.thursday = thursday
+        self.friday = friday
+        self.saturday = saturday
