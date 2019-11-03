@@ -1,25 +1,6 @@
-from flask import Flask, render_template, flash, redirect, url_for, request
-from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy.ext.automap import automap_base
-from sqlalchemy.orm import sessionmaker
-from sqlalchemy import create_engine, Column, String, Integer, Boolean, ForeignKey, Float
+from flask import render_template, flash, redirect, url_for, request
 from forms import *
-
-app = Flask(__name__)
-app.config['SECRET_KEY'] = '5791628bb0b13ce0c676dfde280ba245'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:Junior7898@localhost/postgres'
-db = SQLAlchemy(app)
-
-session = sessionmaker(bind=db)()
-
-Base = automap_base()
-Base.prepare(db.engine, reflect = True)
-
-
-session = sessionmaker()
-session.configure(bind=db.engine)
-s = session()
-
+from models import *
 
 @app.route('/')
 def home():
@@ -132,3 +113,4 @@ def querie10():
 
 if __name__ == '__main__':
     app.run(debug=True)
+
