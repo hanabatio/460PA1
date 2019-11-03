@@ -44,7 +44,7 @@ class Review(Base):
 
     review_id = Column(String(10000), primary_key=True)
     business_id = Column(ForeignKey('Business.business_id'))
-    user_id = Column(String(10000))
+    user_id = Column(ForeignKey('Users.user_id'))
     stars = Column(Float)
     review_text = Column(String(100000))
 
