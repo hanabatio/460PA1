@@ -10,66 +10,6 @@ app.config['SECRET_KEY'] = '5791628bb0b13ce0c676dfde280ba245'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:Junior7898@localhost/postgres'
 db = SQLAlchemy(app)
 
-#Class sysmtem for the DB; idk if we need it or not 
-'''
-class Business(db.Model):
-    __tablename__ = 'Business'
-    business_id = db.Column('business_id', db.String(30), primary_key=True)
-    active = db.Column('active', db.Boolean, nullable = False)
-    categories = db.Column('categories', db.String(200))
-    review_count = db.Column('review_count', db.Integer, nullable = False)
-    business_name = db.Column('business_name', db.String(200), nullable = False)
-    stars = db.Column('stars', db.Float, nullable=False)
-
-    def __init__(self, business_id, active, categories, review_count, business_name, stars):
-        self.business_id = business_id
-        self.active = active
-        self.categories = categories
-        self.review_count = review_count
-        self.business_name = business_name
-        self.stars = stars
-
-    def __repr__(self):
-        return f"Business('{self.business_id}', '{self.business_name}', '{self.categories}', '{self.review_count}', '{self.stars}')"
-
-class Checkins(db.Model):
-    __tablename__ = 'Checkins'
-    business_id = db.Column('business_id', db.String(30), db.ForeignKey('business_id'), nullable=False)
-    Sunday = db.Column('Sunday', db.Integer, nullable = False)
-    Monday = db.Column('Monday', db.Integer, nullable = False)
-    Tuesday = db.Column('Tuesday', db.Integer, nullable = False)
-    Wednesday = db.Column('Wednesday', db.Integer, nullable = False)
-    Thursday = db.Column('Thursday', db.Integer, nullable = False)
-    Friday = db.Column('Friday', db.Integer, nullable = False)
-    Saturday = db.Column('Saturday', db.Integer, nullable = False)
-
-    def __repr__(self):
-        return f"Checkins('{self.business_id}', '{self.Sunday}', '{self.Monday}', '{self.Tueday}', '{self.Wednesday}', '{self.Thursday}', '{self.Friday}', '{self.Saturday}')"
-
-class Reviews(db.Model):
-    __tablename__ = 'Reviews'
-    review_id = db.Column('review_id', db.String(30), primary_key=True)
-    business_id = db.Column('business_id', db.String(30), db.ForeignKey('business_id'), nullable=False)
-    user_id = db.Column('user_id', db.String(30), db.ForeignKey('user_id'), nullable=False)
-    stars = db.Column('stars', db.Float, nullable=False)
-    review_text = db.Column('review_text', db.Text)
-
-    def __repr__(self):
-        return f"Reviews('{self.review_id}', '{self.review_id}', '{self.user_id}')"
-
-class Users(db.model):
-    __tablename__ = 'Users'
-    user_id = db.Column('user_id', db.String(30), primary_key=True)
-    name = db.Column('name', db.String(30), nullable = False)
-    review_count = db.Column('review_count', db.Integer, nullable=False)
-
-    review = db.relationship('Reviews', backref='user',lazy=True)
-
-    def __repr__(self):
-        return f"Users('{self.user_id}', '{self.name}', '{self.review_count}')"
-'''
-
-
 session = sessionmaker(bind=db)()
 
 Base = automap_base()
