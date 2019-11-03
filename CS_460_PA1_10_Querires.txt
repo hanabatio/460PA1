@@ -1,0 +1,20 @@
+Query 1: SELECT * FROM postgres.public."Users" WHERE (review_count >=1);
+
+Query 2: SELECT "Users"."name" FROM postgres.public."Users" WHERE (review_count <= 2);
+
+Query 3: SELECT * FROM postgres.public."Business" WHERE (active=false);
+
+Query 4: SELECT "Business".business_name FROM postgres.public."Business" WHERE stars >=4 and categories LIKE '%Pizza%';
+
+Query 5: SELECT COUNT(*) FROM postgres.public."Checkins" WHERE "Friday" >=1;
+
+QUERY 6: SELECT "Reviews".review_text FROM postgres.public."Reviews" WHERE business_id = (SELECT "Business".business_id FROM postgres.public."Business" WHERE "business_name" = 'Arcadia Tavern');
+
+Query 7: SELECT "Business".business_name FROM postgres.public."Business", postgres.public."Reviews" WHERE "Business".business_id = "Reviews".business_id AND ("Reviews".stars = 1 OR "Reviews".stars = 2);
+
+Query 8: SELECT AVG("Business".stars) AS "Average Rating of All KFC Stores", SUM("Business".review_count) AS "Total Number of Reviews for All KFC Stores" FROM postgres.public."Business" WHERE business_name LIKE '%Kfc%'; 
+
+Query 9: SELECT "Business".business_id AS "Business IDs of the Top 10 Most Reviewed Stores" FROM postgres.public."Business" ORDER BY "Business".review_count DESC LIMIT 10;
+
+Query 10: SELECT "Users"."name" as "User with Most Reviews" FROM postgres.public."Users" ORDER BY "Users".review_count DESC LIMIT 1
+  
