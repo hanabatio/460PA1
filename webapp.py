@@ -4,10 +4,11 @@ from sqlalchemy.ext.automap import automap_base
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy import create_engine, Column, String, Integer, Boolean, ForeignKey, Float
 from forms import *
+#from models import *
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = '5791628bb0b13ce0c676dfde280ba245'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///postgres.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql+psycopg2:///postgres.db'
 db = SQLAlchemy(app)
 
 session = sessionmaker(bind=db)()
