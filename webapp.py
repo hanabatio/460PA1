@@ -60,47 +60,74 @@ def reviews():
 #ten queries
 @app.route('/q1')
 def querie1():
-    #cur = db.connection.cursor()
-    #cur.execute('''SELECT * FROM (mysql.Users) WHERE (review_count>=1)''')
-    #rv = cur.fetchall()
-    #return str(rv)
-    return "HI"
+    connection = db.engine.connect()
+    query1command = 'SELECT * FROM postgres.public."Users" WHERE (review_count >=1)'
+    response = connection.execute(query1command).fetchall()
+    return str(response)
     
 @app.route('/q2')
 def querie2():
-    return "Hi"
+    connection = db.engine.connect()
+    query2command = 'SELECT "Users"."name" FROM postgres.public."Users" WHERE (review_count <= 2);'
+    response = connection.execute(query2command).fetchall()
+    return str(response)
 
 @app.route('/q3')
 def querie3():
-    return "Hi"
+    connection = db.engine.connect()
+    query3command = 'SELECT * FROM postgres.public."Business" WHERE (active=false);' 
+    response = connection.execute(query3command).fetchall()
+    return str(response)
 
 @app.route('/q4')
 def querie4():
-    return "Hi"
+    connection = db.engine.connect()
+    query4command = 'SELECT "Business".business_name FROM postgres.public."Business" WHERE (stars >=4) AND (categories LIKE '%Pizza%') ;' 
+    response = connection.execute(query4command).fetchall()
+    return str(response)
 
 @app.route('/q5')
 def querie5():
-    return "Hi"
+    connection = db.engine.connect()
+    query5command = 'SELECT COUNT(*) FROM postgres.public."Checkins" WHERE "Friday" >=1;' 
+    response = connection.execute(query5command).fetchall()
+    return str(response)
 
 @app.route('/q6')
 def querie6():
+    connection = db.engine.connect()
+    query6command = 'SELECT "Reviews".review_text FROM postgres.public."Reviews" WHERE business_id = (SELECT "Business".business_id FROM postgres.public."Business" WHERE "business_name" = 'Arcadia Tavern');'
+    response = connection.execute(query6command).fetchall()
+    return str(response)
     return "Hi"
 
 @app.route('/q7')
 def querie7():
-    return "Hi"
+    connection = db.engine.connect()
+    query7command = 'SELECT "Business".business_name FROM postgres.public."Business", postgres.public."Reviews" WHERE "Business".business_id = "Reviews".business_id AND ("Reviews".stars = 1 OR "Reviews".stars = 2);'
+    response = connection.execute(query7command).fetchall()
+    return str(response)
 
 @app.route('/q8')
 def querie8():
-    return "Hi"
+    connection = db.engine.connect()
+    query8command = 'SELECT AVG("Business".stars) AS "Average Rating of All KFC Stores", SUM("Business".review_count) AS "Total Number of Reviews for All KFC Stores" FROM postgres.public."Business" WHERE business_name LIKE %' + 'Kfc' +'%;'
+    response = connection.execute(query8command).fetchall()
+    return str(response)
 
 @app.route('/q9')
 def querie9():
-    return "Hi"
+    connection = db.engine.connect()
+    query9command = 'SELECT "Business".business_id AS "Business IDs of the Top 10 Most Reviewed Stores" FROM postgres.public."Business" ORDER BY "Business".review_count DESC LIMIT 10;'
+    response = connection.execute(query9command).fetchall()
+    return str(response)
 
 @app.route('/q10')
 def querie10():
-    return "Hi"
+    connection = db.engine.connect()
+    query10command = 'SELECT "Users"."name" as "User with Most Reviews" FROM postgres.public."Users" ORDER BY "Users".review_count DESC LIMIT 1' 
+    response = connection.execute(query10command).fetchall()
+    return str(response)
 
 
 if __name__ == '__main__':
