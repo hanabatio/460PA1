@@ -1,7 +1,8 @@
 # coding: utf-8
-from sqlalchemy import Boolean, Column, Float, ForeignKey, Integer, String, Table
+from sqlalchemy import Boolean, Column, Float, ForeignKey, Integer, String
 from sqlalchemy.orm import relationship
 from sqlalchemy.ext.declarative import declarative_base
+from webapp import db
 
 Base = declarative_base()
 metadata = Base.metadata
@@ -26,17 +27,17 @@ class User(Base):
     review_count = Column(Integer)
 
 
-t_Checkins = Table(
-    'Checkins', metadata,
-    Column('business_id', ForeignKey('Business.business_id')),
-    Column('Sunday', Integer),
-    Column('Monday', Integer),
-    Column('Tuesday', Integer),
-    Column('Wednesday', Integer),
-    Column('Thursday', Integer),
-    Column('Friday', Integer),
-    Column('Saturday', Integer)
-)
+class Checkins(Base):
+    __tablename__ = 'Checkins'
+
+    business_id = Column(ForeignKey('Business.business_id'), primary_key=True)    
+    sunday = Column(Integer)
+    monday = Column(Integer)
+    tuesday =Column(Integer)
+    wednesday = Column(Integer)
+    thursday = Column(Integer)
+    friday = Column(Integer)
+    saturday = Column(Integer)
 
 
 class Review(Base):
