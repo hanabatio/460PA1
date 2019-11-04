@@ -384,7 +384,7 @@ def search1():
         return redirect(url_for('searchresult1.html'))
 
 
-    return render_template('searchresult1.html', form=form)
+    return render_template('searchresult1.html', title='Search Results' form=form)
 
 
 

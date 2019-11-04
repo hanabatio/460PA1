@@ -28,6 +28,32 @@
 
 <br><br>
 
+<div class="content-section">
+    <form method="POST" action="">
+        {{ form.hidden_tag() }}
+        <fieldset class="form-group">
+            <legend class="border-bottom mb-4">Fill in the blanks below:</legend>
+            <p>Get the top</p>
+            <div class="form-group">
+                {{ form.top_number.label(class="form-control-label") }}
+                {{ form.top_number(class="form-control form-control-lg") }}
+            </div>
+            <p>restaurants that serve</p>
+            <div class="form-group">
+                    {{ form.category_finder.label(class="form-control-label") }}
+                    {{ form.category_finder(class="form-control form-control-lg") }}
+            </div>
+            <p>food.</p> 
+        </fieldset>
+        <div class="form-group">
+            {{ form.submit(class= "btn btn-outline-info") }}
+        </div>
+
+    </form>
+
+
+</div>
+
 
 
 {% endblock %}
