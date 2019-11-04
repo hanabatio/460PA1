@@ -11,6 +11,7 @@ Base.prepare(db.engine, reflect = True)
 
 class Busines(Base):
     __tablename__ = 'Business'
+    __table_args__ = {'extend_existing': True}
 
     business_id = Column(String(10000), primary_key=True)
     active = Column(Boolean)
@@ -22,6 +23,7 @@ class Busines(Base):
 
 class User(Base):
     __tablename__ = 'Users'
+    __table_args__ = {'extend_existing': True}
 
     user_id = Column(String(10000), primary_key=True)
     name = Column(String(10000))
@@ -30,6 +32,7 @@ class User(Base):
 
 class Checkins(Base):
     __tablename__ = 'Checkins'
+    __table_args__ = {'extend_existing': True}
 
     business_id = Column(ForeignKey('Business.business_id'), primary_key=True)    
     sunday = Column(Integer)
@@ -43,6 +46,7 @@ class Checkins(Base):
 
 class Review(Base):
     __tablename__ = 'Reviews'
+    __table_args__ = {'extend_existing': True}
 
     review_id = Column(String(10000), primary_key=True)
     business_id = Column(ForeignKey('Business.business_id'))

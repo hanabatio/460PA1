@@ -13,8 +13,10 @@ def business():
     if form.validate_on_submit():
        
         business = Busines(business_id=form.business_id.data, active= form.active.data, categories= form.categories.data,
-        business_name= form.business_name.data, review_count= form.review_count.data)
-        
+        business_name= form.business_name.data, review_count= form.review_count.data, stars= form.stars.data)
+        db.session.add(business)
+        db.session.commit()
+
         flash(f'Business Inserted!','success')
         return redirect(url_for('home'))
     return render_template('business.html', form=form)
@@ -23,6 +25,11 @@ def business():
 def user():
     form = newUserForm(request.form)
     if form.validate_on_submit():
+
+        user = User(user_id=form.userid.data, name= form.name.data, review_count= form.review_count.data)
+        db.session.add(user)
+        db.session.commit()
+
         flash(f'User Inserted!','success')
         return redirect(url_for('home'))
     return render_template('user.html', form=form)
@@ -31,6 +38,36 @@ def user():
 def checkins():
     form = newCheckInForm(request.form)
     if form.validate_on_submit():
+        days=["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
+        if form.day_of_week.data not in days:
+            flash(f'Invalid Day','failure')
+        #case where already in table
+        else:
+            if form.day_of_week.data == "Sunday":
+                checkin = Checkins(business_id=form.business_id.data, sunday=1, monday=0, tuesday=0, wednesday=0, thursday=0, friday=0,
+                saturday=0)
+            elif form.day_of_week.data == "Monday":
+                checkin = Checkins(business_id=form.business_id.data, sunday=0, monday=1, tuesday=0, wednesday=0, thursday=0, friday=0,
+                saturday=0)
+            elif form.day_of_week.data == "Tuesday":
+                checkin = Checkins(business_id=form.business_id.data, sunday=0, monday=0, tuesday=1, wednesday=0, thursday=0, friday=0,
+                saturday=0)
+            elif form.day_of_week.data == "Wednesday":
+                checkin = Checkins(business_id=form.business_id.data, sunday=0, monday=0, tuesday=0, wednesday=1, thursday=0, friday=0,
+                saturday=0)
+            elif form.day_of_week.data == "Thursday":
+                checkin = Checkins(business_id=form.business_id.data, sunday=0, monday=0, tuesday=0, wednesday=0, thursday=1, friday=0,
+                saturday=0)
+            elif form.day_of_week.data == "Friday":
+                checkin = Checkins(business_id=form.business_id.data, sunday=0, monday=0, tuesday=0, wednesday=0, thursday=0, friday=1,
+                saturday=0)
+            else:
+                checkin = Checkins(business_id=form.business_id.data, sunday=0, monday=0, tuesday=0, wednesday=0, thursday=0, friday=0,
+                saturday=1)
+
+            db.session.add(checkin)
+            db.session.commit()
+
         flash(f'CheckIn Inserted!','success')
         return redirect(url_for('home'))
     return render_template('checkins.html', form=form)
@@ -39,6 +76,12 @@ def checkins():
 def reviews():
     form = newReviewForm(request.form)
     if form.validate_on_submit():
+
+        review = Review(review_id= form.review_id.data, business_id=form.business_id.data, user_id=form.userid.data,
+        stars= form.stars.data, review_text= form.review_text.data)
+        db.session.add(business)
+        db.session.commit()
+
         flash(f'Review Inserted!','success')
         return redirect(url_for('home'))
     return render_template('reviews.html', form=form)
