@@ -1,5 +1,5 @@
 from flask import render_template, flash, redirect, url_for, request
-from webapp import app
+from webapp import app, db
 from webapp.forms import *
 from webapp.models import *
 
@@ -11,6 +11,10 @@ def home():
 def business():
     form = newBusinessForm(request.form)
     if form.validate_on_submit():
+       
+        business = Busines(business_id=form.business_id.data, active= form.active.data, categories= form.categories.data,
+        business_name= form.business_name.data, review_count= form.review_count.data)
+        
         flash(f'Business Inserted!','success')
         return redirect(url_for('home'))
     return render_template('business.html', form=form)
@@ -49,7 +53,7 @@ def query1():
         table1 = makeTable1()
         print (table1)
         return render_template('q1.html', table1=table1)
-        
+
 def makeTable1():
     c = db.engine.connect()
     rows = c.execute('SELECT * FROM postgres.public."Users" WHERE (review_count >=1)')

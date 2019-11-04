@@ -1,6 +1,5 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy.ext.automap import automap_base
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy import create_engine
 
@@ -12,12 +11,3 @@ db = SQLAlchemy(app)
 
 
 from webapp import routes
-
-session = sessionmaker(bind=db)()
-
-Base = automap_base()
-Base.prepare(db.engine, reflect = True)
-
-session = sessionmaker()
-session.configure(bind=db.engine)
-s = session()

@@ -1,7 +1,12 @@
 # coding: utf-8
 from sqlalchemy import Boolean, Column, Float, ForeignKey, Integer, String
+from sqlalchemy.ext.automap import automap_base
 from sqlalchemy.orm import relationship
-from webapp import db, Base
+from webapp import db
+
+
+Base = automap_base()
+Base.prepare(db.engine, reflect = True)
 
 
 class Busines(Base):
