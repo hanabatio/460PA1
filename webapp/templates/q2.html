@@ -1,0 +1,25 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<style>
+    th {
+      text-align: center;
+    }
+</style>
+
+<h2>Query 2</h2>
+<p>Display the name of the users that have made 2 reviews or less.</p>
+<table style="width:50%">
+<tr>
+    <th>name</th>
+  </tr>
+
+  {% for row in table2 %}
+    <tr>
+    <td>{{row[0]}}</td>
+    </tr>
+  {% endfor %}
+
+</table>
+
+{% endblock %}
