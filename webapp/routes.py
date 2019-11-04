@@ -39,7 +39,15 @@ def reviews():
     return render_template('reviews.html', form=form)
 
 #ten queries
-@app.route('/q1')
+@app.route('/q1', methods=['GET','POST'])
+def query1():
+    table = []
+    if request.method == 'POST':
+        return render_template('q1.html')
+    else:
+        table = querie1()
+        print (table)
+        return render_template('q1.html', table=table)
 def querie1():
     connection = db.engine.connect()
     query1command = 'SELECT * FROM postgres.public."Users" WHERE (review_count >=1)'
@@ -77,7 +85,7 @@ def querie5():
 @app.route('/q6')
 def querie6():
     connection = db.engine.connect()
-    query6command = 'SELECT "Reviews".review_text FROM postgres.public."Reviews" WHERE business_id = (SELECT "Business".business_id FROM postgres.public."Business" WHERE "business_name" = 'Arcadia Tavern');'
+    query6command = 'SELECT "Reviews".review_text FROM postgres.public."Reviews" WHERE business_id = (SELECT "Business".business_id FROM postgres.public."Business" WHERE "business_name" = ''Arcadia Tavern'');'
     response = connection.execute(query6command).fetchall()
     return str(response)
     return "Hi"
@@ -95,6 +103,7 @@ def querie8():
     query8command = 'SELECT AVG("Business".stars) AS "Average Rating of All KFC Stores", SUM("Business".review_count) AS "Total Number of Reviews for All KFC Stores" FROM postgres.public."Business" WHERE business_name LIKE %' + 'Kfc' +'%;'
     response = connection.execute(query8command).fetchall()
     return str(response)
+    return "Hi"
 
 @app.route('/q9')
 def querie9():
