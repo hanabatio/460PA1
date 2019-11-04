@@ -1,11 +1,7 @@
 # coding: utf-8
 from sqlalchemy import Boolean, Column, Float, ForeignKey, Integer, String
 from sqlalchemy.orm import relationship
-from sqlalchemy.ext.declarative import declarative_base
-from webapp import db
-
-Base = declarative_base()
-metadata = Base.metadata
+from webapp import db, Base
 
 
 class Busines(Base):
