@@ -167,7 +167,8 @@ def query4():
 
 def makeTable4():
     c = db.engine.connect()
-    rows = c.execute('SELECT "Business".business_name FROM postgres.public."Business" WHERE stars >=4 and categories LIKE '%Pizza%';')   
+    model_word = 'Pizza'
+    rows = c.execute('SELECT "Business".business_name FROM postgres.public."Business" WHERE stars >=4 and categories LIKE %s', ("%" + model_word + "%"))   
     return rows
 
 @app.route('/q5')
@@ -197,7 +198,8 @@ def query6():
 
 def makeTable6():
     c = db.engine.connect()
-    rows = "Hi"#c.execute('SELECT "Reviews".review_text FROM postgres.public."Reviews" WHERE business_id = (SELECT "Business".business_id FROM postgres.public."Business" WHERE "business_name" = 'Arcadia Tavern');')   
+    model_word6 = 'Arcadia Tavern'
+    rows = c.execute('SELECT "Reviews".review_text FROM postgres.public."Reviews" WHERE business_id = (SELECT "Business".business_id FROM postgres.public."Business" WHERE "business_name" = ?', model_word6 )
     return rows
 
 @app.route('/q7')
@@ -227,7 +229,8 @@ def query8():
 
 def makeTable8():
     c = db.engine.connect()
-    rows = "Hi"#c.execute('SELECT AVG("Business".stars) AS "Average Rating of KFC Stores", SUM("Business".review_count) AS "Total Number of Reviews for All KFC Stores" FROM postgres.public."Business" WHERE business_name LIKE '%Kfc%';')  
+    model_word8 = 'Kfc'
+    rows = c.execute('SELECT AVG("Business".stars) AS "Average Rating of KFC Stores", SUM("Business".review_count) AS "Total Number of Reviews for All KFC Stores" FROM postgres.public."Business" WHERE business_name LIKE %s', ("%" + model_word8 + "%"))   
     return rows
 
 
