@@ -46,10 +46,11 @@ def query1():
     if request.method == 'POST':
         return render_template('q1.html')
     else:
-        table1 = querie1()
+        table1 = makeTable1()
         print (table1)
         return render_template('q1.html', table1=table1)
-def querie1():
+        
+def makeTable1():
     c = db.engine.connect()
     rows = c.execute('SELECT * FROM postgres.public."Users" WHERE (review_count >=1)')
     return rows
