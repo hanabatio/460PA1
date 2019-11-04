@@ -1,5 +1,6 @@
 from flask import render_template, flash, redirect, url_for, request
 from webapp import app, db
+from sqlalchemy import update
 from webapp.forms import *
 from webapp.models import *
 
@@ -38,34 +39,56 @@ def user():
 def checkins():
     form = newCheckInForm(request.form)
     if form.validate_on_submit():
+        business=Checkins.query.filter_by(business_id=form.business_id.data)
         days=["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
         if form.day_of_week.data not in days:
             flash(f'Invalid Day','failure')
-        #case where already in table
         else:
             if form.day_of_week.data == "Sunday":
-                checkin = Checkins(business_id=form.business_id.data, sunday=1, monday=0, tuesday=0, wednesday=0, thursday=0, friday=0,
-                saturday=0)
+                if business:
+                    business.sunday+=1
+                else:
+                    checkin = Checkins(business_id=form.business_id.data, sunday=1, monday=0, tuesday=0, wednesday=0, thursday=0, friday=0,
+                    saturday=0)
             elif form.day_of_week.data == "Monday":
-                checkin = Checkins(business_id=form.business_id.data, sunday=0, monday=1, tuesday=0, wednesday=0, thursday=0, friday=0,
-                saturday=0)
+                if business:
+                    business.monday+=1
+                else:
+                    checkin = Checkins(business_id=form.business_id.data, sunday=0, monday=1, tuesday=0, wednesday=0, thursday=0, friday=0,
+                    saturday=0)
             elif form.day_of_week.data == "Tuesday":
-                checkin = Checkins(business_id=form.business_id.data, sunday=0, monday=0, tuesday=1, wednesday=0, thursday=0, friday=0,
-                saturday=0)
+                if business:
+                    business.tuesday+=1
+                else:
+                    checkin = Checkins(business_id=form.business_id.data, sunday=0, monday=0, tuesday=1, wednesday=0, thursday=0, friday=0,
+                    saturday=0)
             elif form.day_of_week.data == "Wednesday":
-                checkin = Checkins(business_id=form.business_id.data, sunday=0, monday=0, tuesday=0, wednesday=1, thursday=0, friday=0,
-                saturday=0)
+                if business:
+                    business.wednesday+=1
+                else:
+                    checkin = Checkins(business_id=form.business_id.data, sunday=0, monday=0, tuesday=0, wednesday=1, thursday=0, friday=0,
+                    saturday=0)
             elif form.day_of_week.data == "Thursday":
-                checkin = Checkins(business_id=form.business_id.data, sunday=0, monday=0, tuesday=0, wednesday=0, thursday=1, friday=0,
-                saturday=0)
+                if business:
+                    business.thursday+=1
+                else:
+                    checkin = Checkins(business_id=form.business_id.data, sunday=0, monday=0, tuesday=0, wednesday=0, thursday=1, friday=0,
+                    saturday=0)
             elif form.day_of_week.data == "Friday":
-                checkin = Checkins(business_id=form.business_id.data, sunday=0, monday=0, tuesday=0, wednesday=0, thursday=0, friday=1,
-                saturday=0)
+                if business:
+                    business.friday+=1
+                else:
+                    checkin = Checkins(business_id=form.business_id.data, sunday=0, monday=0, tuesday=0, wednesday=0, thursday=0, friday=1,
+                    saturday=0)
             else:
-                checkin = Checkins(business_id=form.business_id.data, sunday=0, monday=0, tuesday=0, wednesday=0, thursday=0, friday=0,
-                saturday=1)
+                if business:
+                    business.saturday+=1
+                else:
+                    checkin = Checkins(business_id=form.business_id.data, sunday=0, monday=0, tuesday=0, wednesday=0, thursday=0, friday=0,
+                    saturday=1)
 
-            db.session.add(checkin)
+            if not business:
+                db.session.add(checkin)
             db.session.commit()
 
         flash(f'CheckIn Inserted!','success')
