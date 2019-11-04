@@ -126,18 +126,34 @@ def makeTable1():
     return rows
     
 @app.route('/q2')
-def querie2():
-    connection = db.engine.connect()
-    query2command = 'SELECT "Users"."name" FROM postgres.public."Users" WHERE (review_count <= 2);'
-    response = connection.execute(query2command).fetchall()
-    return str(response)
+def query2():
+    table2 = []
+    if request.method == 'POST':
+        return render_template('q2.html')
+    else:
+        table2 = makeTable2()
+        print (table2)
+        return render_template('q2.html', table2=table2)
+
+def makeTable2():
+    c = db.engine.connect()
+    rows = c.execute('SELECT "Users"."name" FROM postgres.public."Users" WHERE (review_count <= 2);')
+    return rows
 
 @app.route('/q3')
-def querie3():
-    connection = db.engine.connect()
-    query3command = 'SELECT * FROM postgres.public."Business" WHERE (active=false);' 
-    response = connection.execute(query3command).fetchall()
-    return str(response)
+def query3():
+    table3 = []
+    if request.method == 'POST':
+        return render_template('q3.html')
+    else:
+        table3 = makeTable3()
+        print (table3)
+        return render_template('q3.html', table3=table3)
+
+def makeTable3():
+    c = db.engine.connect()
+    rows = c.execute('SELECT * FROM postgres.public."Business" WHERE (active=false);')   
+    return rows
 
 @app.route('/q4')
 def querie4():

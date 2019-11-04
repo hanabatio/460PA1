@@ -1,0 +1,30 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<h2>Query 3</h2>
+<p>Display all inactive businesses.</p>
+<table style="width:120%">
+<tr>
+    <th>business_id</th>
+    <th>active</th>
+    <th>categories</th>
+    <th>review_count</th>
+    <th>business_name</th>
+    <th>stars</th>
+  </tr>
+
+
+  {% for row in table3 %}
+    <tr>
+    <td>{{row[0]}}</td>
+    <td>{{row[1]}}</td>
+    <td>{{row[2]}}</td>
+    <td>{{row[3]}}</td>
+    <td>{{row[4]}}</td>
+    <td>{{row[5]}}</td>
+    </tr>
+  {% endfor %}
+
+</table>
+
+{% endblock %}
