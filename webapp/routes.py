@@ -266,6 +266,33 @@ def makeTable10():
     rows = c.execute('SELECT "Users"."name" as "User with Most Reviews" FROM postgres.public."Users" ORDER BY "Users".review_count DESC LIMIT 1') 
     return rows
 
+#User Queries    
+
+@app.route('/searchresult1', methods= ['GET', 'POST'])
+def search1():
+    form = newSearch1Form(request.form)
+    if form.validate_on_submit():
+        table11 = []
+        if request.method == 'POST':
+            return render_template('searchresult1.html')
+        else:
+            table11 = makeTable11()
+            print (table11)
+            return render_template('searchresult1.html', table11=table11)
+        
+    def makeTable11():
+        c = db.engine.connect()
+        rows = c.execute('')
+        return rows
+
+
+        flash(f'Search Found!','success')
+        return redirect(url_for('searchresult1.html'))
+
+
+    return render_template('searchresult1.html', form=form)
+
+
 
 if __name__ == '__main__':
     app.run(debug=True)
