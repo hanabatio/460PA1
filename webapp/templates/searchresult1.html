@@ -1,0 +1,30 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<h2>Search Results</h2>
+<p>Here are your results</p>
+<table style="width:120%">
+<tr>
+    <th>business_id</th>
+    <th>active</th>
+    <th>categories</th>
+    <th>review_count</th>
+    <th>business_name</th>
+    <th>stars</th>
+  </tr>
+
+
+  {% for row in table11 %}
+    <tr>
+    <td>{{row[0]}}</td>
+    <td>{{row[1]}}</td>
+    <td>{{row[2]}}</td>
+    <td>{{row[3]}}</td>
+    <td>{{row[4]}}</td>
+    <td>{{row[5]}}</td>
+    </tr>
+  {% endfor %}
+
+</table>
+
+{% endblock %}

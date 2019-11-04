@@ -376,7 +376,7 @@ def search1():
         
     def makeTable11():
         c = db.engine.connect()
-        rows = c.execute('')
+        rows = c.execute('SELECT * FROM postgres.public."Business" WHERE (active = true) and (categories LIKE %s, ("%" + form.category_finder.data + "%")) ORDER BY "Business".review_count DESC LIMIT form.top_number.data')
         return rows
 
 
