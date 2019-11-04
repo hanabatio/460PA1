@@ -1,0 +1,35 @@
+{% extends "layout.html" %}
+{% block content %}
+<h1>Reviews</h1>
+<br>
+<div class="content-section">
+    <form method='POST' action=''>
+        {{ form.hidden_tag() }}
+        <fieldset class="form-group">
+            <legend class="border-bottom mb-4">Delete Review</legend>
+            <div class="form-group">
+                {{ form.review_id.label(class="form-control-label") }}
+
+                {% if form.review_id.errors %}
+                {{ form.review_id(class="form-control form-control-lg is-invalid") }}
+                <div class="invalid-feedback">
+                    {% for error in form.review_id.errors %}
+                        <span>{{ error }}</span>
+                    {% endfor %}
+                </div>
+            {% else %}
+                {{ form.review_id(class="form-control form-control-lg") }}
+            {% endif %}
+
+            </div>
+            
+        </fieldset>
+        <div class="form-group">
+            {{ form.submit(class= "btn btn-outline-info") }}
+        </div>
+
+    </form>
+
+
+</div>
+{% endblock %}

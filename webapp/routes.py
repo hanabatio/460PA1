@@ -8,8 +8,13 @@ from webapp.models import *
 def home():
     return render_template('home.html')
 
-@app.route('/business', methods= ['GET', 'POST'])
+
+@app.route('/business')
 def business():
+    return render_template('business.html')
+
+@app.route('/business/insert', methods= ['GET', 'POST'])
+def businessInsert():
     form = newBusinessForm(request.form)
     if form.validate_on_submit():
        
@@ -19,11 +24,43 @@ def business():
         db.session.commit()
 
         flash(f'Business Inserted!','success')
-        return redirect(url_for('home'))
-    return render_template('business.html', form=form)
+        return redirect(url_for('business'))
+    return render_template('business-insert.html', form=form)
 
-@app.route('/user', methods= ['GET', 'POST'])
+@app.route('/business/delete', methods= ['GET', 'POST'])
+def businessDelete():
+    form = deleteBusinessForm(request.form)
+    if form.validate_on_submit():
+        Busines.query.filter_by(business_id=form.business_id.data).delete()
+        db.session.commit()
+
+        flash(f'Businesss Deleted!','success')
+        return redirect(url_for('business'))
+    return render_template('business-delete.html', form=form)
+
+@app.route('/business/update', methods= ['GET', 'POST'])
+def businessUpdate():
+    form = updateBusinessForm(request.form)
+    if form.validate_on_submit():
+        business = Busines.query.filter_by(business_id=form.business_id.data)
+        business.name=form.business_name.data
+        business.review_count=form.review_count.data
+        business.active=form.active.data
+        business.stars=form.stars.data
+        business.categories=form.categories.data
+        db.session.commit()
+
+        flash(f'Business Updated!','success')
+        return redirect(url_for('business'))
+    return render_template('business-update.html', form=form)
+
+
+@app.route('/user')
 def user():
+    return render_template('user.html')
+
+@app.route('/user/insert', methods= ['GET', 'POST'])
+def userInsert():
     form = newUserForm(request.form)
     if form.validate_on_submit():
 
@@ -32,8 +69,33 @@ def user():
         db.session.commit()
 
         flash(f'User Inserted!','success')
-        return redirect(url_for('home'))
-    return render_template('user.html', form=form)
+        return redirect(url_for('user'))
+    return render_template('user-insert.html', form=form)
+
+@app.route('/user/delete', methods= ['GET', 'POST'])
+def userDelete():
+    form = deleteUserForm(request.form)
+    if form.validate_on_submit():
+        User.query.filter_by(user_id=form.userid.data).delete()
+        db.session.commit()
+
+        flash(f'User Deleted!','success')
+        return redirect(url_for('user'))
+    return render_template('user-delete.html', form=form)
+
+@app.route('/user/update', methods= ['GET', 'POST'])
+def userUpdate():
+    form = updateUserForm(request.form)
+    if form.validate_on_submit():
+        user = User.query.filter_by(user_id=form.userid.data)
+        user.name=form.name.data
+        user.review_count=form.review_count.data
+        db.session.commit()
+
+        flash(f'User Updated!','success')
+        return redirect(url_for('user'))
+    return render_template('user-update.html', form=form)
+
 
 @app.route('/checkins', methods= ['GET', 'POST'])
 def checkins():
@@ -95,8 +157,13 @@ def checkins():
         return redirect(url_for('home'))
     return render_template('checkins.html', form=form)
 
-@app.route('/reviews', methods= ['GET', 'POST'])
+
+@app.route('/reviews')
 def reviews():
+    return render_template('reviews.html')
+
+@app.route('/reviews/insert', methods= ['GET', 'POST'])
+def reviewsInsert():
     form = newReviewForm(request.form)
     if form.validate_on_submit():
 
@@ -106,8 +173,35 @@ def reviews():
         db.session.commit()
 
         flash(f'Review Inserted!','success')
-        return redirect(url_for('home'))
-    return render_template('reviews.html', form=form)
+        return redirect(url_for('reviews'))
+    return render_template('reviews-insert.html', form=form)
+
+@app.route('/reviews/delete', methods= ['GET', 'POST'])
+def reviewDelete():
+    form = deleteReviewForm(request.form)
+    if form.validate_on_submit():
+        Review.query.filter_by(review_id=form.review_id.data).delete()
+        db.session.commit()
+
+        flash(f'Review Deleted!','success')
+        return redirect(url_for('review'))
+    return render_template('reviews-delete.html', form=form)
+
+@app.route('/reviews/update', methods= ['GET', 'POST'])
+def reviewUpdate():
+    form = updateReviewForm(request.form)
+    if form.validate_on_submit():
+        review = Review.query.filter_by(review_id=form.review_id.data)
+        review.user_id=form.userid.data
+        review.business_id=form.business_id.data
+        review.stars=form.stars.data
+        review.review_text=form.review_text.data
+        db.session.commit()
+
+        flash(f'Review Updated!','success')
+        return redirect(url_for('review'))
+    return render_template('reviews-update.html', form=form)
+
 
 #ten queries
 @app.route('/q1', methods=['GET','POST'])
