@@ -1,0 +1,20 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<h2>Query 10</h2>
+<p>Display the name of the user that has made the most reviews.</p>
+<table style="width:30%">
+<tr>
+    <th>User with Most Reviews</th>
+  </tr>
+
+
+  {% for row in table10 %}
+    <tr>
+    <td>{{row[0]}}</td>
+    </tr>
+  {% endfor %}
+
+</table>
+
+{% endblock %}

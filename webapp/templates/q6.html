@@ -1,0 +1,25 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<style>
+    th {
+      text-align: center;
+    }
+</style>
+
+<h2>Query 6</h2>
+<p>Display the text of all reviews made for the “Arcadia Tavern”</p>
+<table style="width:100%">
+<tr>
+    <th>review_text</th>
+  </tr>
+
+  {% for row in table6 %}
+    <tr>
+    <td>{{row[0]}}</td>
+    </tr>
+  {% endfor %}
+
+</table>
+
+{% endblock %}

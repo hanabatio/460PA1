@@ -1,0 +1,25 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<style>
+    th {
+      text-align: center;
+    }
+</style>
+
+<h2>Query 7</h2>
+<p>Display the names of the restaurants that have taken at least one 1-star or 2-star review.</p>
+<table style="width:100%">
+<tr>
+    <th>business_name</th>
+  </tr>
+
+  {% for row in table7 %}
+    <tr>
+    <td>{{row[0]}}</td>
+    </tr>
+  {% endfor %}
+
+</table>
+
+{% endblock %}
