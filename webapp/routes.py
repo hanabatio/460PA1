@@ -199,7 +199,9 @@ def query6():
 def makeTable6():
     c = db.engine.connect()
     model_word6 = 'Arcadia Tavern'
-    rows = c.execute('SELECT "Reviews".review_text FROM postgres.public."Reviews" WHERE business_id = (SELECT "Business".business_id FROM postgres.public."Business" WHERE "business_name" = ?', model_word6 )
+    #The orginal SQL Query we wrote was: SELECT "Reviews".review_text FROM postgres.public."Reviews" WHERE business_id = (SELECT "Business".business_id FROM postgres.public."Business" WHERE "business_name" = 'Arcadia Tavern');
+    #However it was switched to this in order for the code to work without errors
+    rows = c.execute('SELECT "Reviews".review_text FROM postgres.public."Reviews" WHERE business_id = (SELECT "Business".business_id FROM postgres.public."Business" WHERE "business_name" LIKE %s)', ("%" + model_word6 + "%"))
     return rows
 
 @app.route('/q7')
