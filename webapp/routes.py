@@ -1,6 +1,7 @@
 from flask import render_template, flash, redirect, url_for, request
-from forms import *
-from models import *
+from webapp import app
+from webapp.forms import *
+from webapp.models import *
 
 @app.route('/')
 def home():
