@@ -23,6 +23,11 @@ class newBusinessForm(FlaskForm):
     stars = FloatField('Stars', validators=[DataRequired(), NumberRange(0,5)])
     submit = SubmitField('Insert')
 
+    def validate_business_id(self, bid):
+        business = Busines.query.filter_by(business_id=bid.data)
+        if business:
+            raise ValidationError("Business ID already Exists")
+
 class newReviewForm(FlaskForm):
     review_id = StringField('Review ID', validators=[DataRequired()])
     userid = StringField('User ID', validators=[DataRequired()])
@@ -30,6 +35,11 @@ class newReviewForm(FlaskForm):
     stars = FloatField('Stars', validators=[DataRequired(), NumberRange(0,5)])
     review_text = StringField('Review', validators=[DataRequired()])
     submit = SubmitField('Insert')
+
+    def validate_review_id(self, rid):
+        review = Review.query.filter_by(review_id=rid.data)
+        if review:
+            raise ValidationError("Review ID already Exists")
 
 class newCheckInForm(FlaskForm):
     business_id = StringField('Business ID', validators=[DataRequired()])
