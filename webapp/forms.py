@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, IntegerField, FloatField, SubmitField, BooleanField
-from wtforms.validators import DataRequired, NumberRange
+from wtforms.validators import DataRequired, NumberRange, ValidationError
 from webapp.models import *
 
 class newUserForm(FlaskForm):
@@ -11,7 +11,8 @@ class newUserForm(FlaskForm):
 
     def validate_userid(self, uid):
         user = User.query.filter_by(user_id=uid.data)
-        
+        if user:
+            raise ValidationError("User ID already Exists")
 
 class newBusinessForm(FlaskForm):
     business_id = StringField('Business ID', validators=[DataRequired()])
