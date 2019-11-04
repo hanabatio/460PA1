@@ -133,55 +133,110 @@ def makeTable3():
     return rows
 
 @app.route('/q4')
-def querie4():
-    connection = db.engine.connect()
-    query4command = 'SELECT "Business".business_name FROM postgres.public."Business" WHERE (stars >=4) AND (categories LIKE '%Pizza%') ;' 
-    response = connection.execute(query4command).fetchall()
-    return str(response)
+def query4():
+    table4 = []
+    if request.method == 'POST':
+        return render_template('q4.html')
+    else:
+        table4 = makeTable4()
+        print (table4)
+        return render_template('q4.html', table4=table4)
+
+def makeTable4():
+    c = db.engine.connect()
+    rows = c.execute('SELECT "Business".business_name FROM postgres.public."Business" WHERE stars >=4 and categories LIKE '%Pizza%';')   
+    return rows
 
 @app.route('/q5')
-def querie5():
-    connection = db.engine.connect()
-    query5command = 'SELECT COUNT(*) FROM postgres.public."Checkins" WHERE "Friday" >=1;' 
-    response = connection.execute(query5command).fetchall()
-    return str(response)
+def query5():
+    table5 = []
+    if request.method == 'POST':
+        return render_template('q5.html')
+    else:
+        table5 = makeTable5()
+        print (table5)
+        return render_template('q5.html', table5=table5)
+
+def makeTable5():
+    c = db.engine.connect()
+    rows = c.execute('SELECT COUNT(*) FROM postgres.public."Checkins" WHERE "Friday" >=1;')    
+    return rows
 
 @app.route('/q6')
-def querie6():
-    connection = db.engine.connect()
-    query6command = 'SELECT "Reviews".review_text FROM postgres.public."Reviews" WHERE business_id = (SELECT "Business".business_id FROM postgres.public."Business" WHERE "business_name" = ''Arcadia Tavern'');'
-    response = connection.execute(query6command).fetchall()
-    return str(response)
-    return "Hi"
+def query6():
+    table6 = []
+    if request.method == 'POST':
+        return render_template('q6.html')
+    else:
+        table6 = makeTable6()
+        print (table6)
+        return render_template('q6.html', table6=table6)
+
+def makeTable6():
+    c = db.engine.connect()
+    rows = "Hi"#c.execute('SELECT "Reviews".review_text FROM postgres.public."Reviews" WHERE business_id = (SELECT "Business".business_id FROM postgres.public."Business" WHERE "business_name" = 'Arcadia Tavern');')   
+    return rows
 
 @app.route('/q7')
-def querie7():
-    connection = db.engine.connect()
-    query7command = 'SELECT "Business".business_name FROM postgres.public."Business", postgres.public."Reviews" WHERE "Business".business_id = "Reviews".business_id AND ("Reviews".stars = 1 OR "Reviews".stars = 2);'
-    response = connection.execute(query7command).fetchall()
-    return str(response)
+def query7():
+    table7 = []
+    if request.method == 'POST':
+        return render_template('q7.html')
+    else:
+        table7 = makeTable7()
+        print (table7)
+        return render_template('q7.html', table7=table7)
+
+def makeTable7():
+    c = db.engine.connect()
+    rows = c.execute('SELECT "Business".business_name FROM postgres.public."Business", postgres.public."Reviews" WHERE "Business".business_id = "Reviews".business_id AND ("Reviews".stars = 1 OR "Reviews".stars = 2);')   
+    return rows
 
 @app.route('/q8')
-def querie8():
-    connection = db.engine.connect()
-    query8command = 'SELECT AVG("Business".stars) AS "Average Rating of All KFC Stores", SUM("Business".review_count) AS "Total Number of Reviews for All KFC Stores" FROM postgres.public."Business" WHERE business_name LIKE %' + 'Kfc' +'%;'
-    response = connection.execute(query8command).fetchall()
-    return str(response)
-    return "Hi"
+def query8():
+    table8 = []
+    if request.method == 'POST':
+        return render_template('q8.html')
+    else:
+        table8 = makeTable8()
+        print (table8)
+        return render_template('q8.html', table8=table8)
+
+def makeTable8():
+    c = db.engine.connect()
+    rows = "Hi"#c.execute('SELECT AVG("Business".stars) AS "Average Rating of KFC Stores", SUM("Business".review_count) AS "Total Number of Reviews for All KFC Stores" FROM postgres.public."Business" WHERE business_name LIKE '%Kfc%';')  
+    return rows
+
 
 @app.route('/q9')
-def querie9():
-    connection = db.engine.connect()
-    query9command = 'SELECT "Business".business_id AS "Business IDs of the Top 10 Most Reviewed Stores" FROM postgres.public."Business" ORDER BY "Business".review_count DESC LIMIT 10;'
-    response = connection.execute(query9command).fetchall()
-    return str(response)
+def query9():
+    table9 = []
+    if request.method == 'POST':
+        return render_template('q9.html')
+    else:
+        table9 = makeTable9()
+        print (table9)
+        return render_template('q9.html', table9=table9)
+
+def makeTable9():
+    c = db.engine.connect()
+    rows = c.execute('SELECT "Business".business_id AS "Business IDs of the Top 10 Most Reviewed Stores" FROM postgres.public."Business" ORDER BY "Business".review_count DESC LIMIT 10;')
+    return rows
 
 @app.route('/q10')
-def querie10():
-    connection = db.engine.connect()
-    query10command = 'SELECT "Users"."name" as "User with Most Reviews" FROM postgres.public."Users" ORDER BY "Users".review_count DESC LIMIT 1' 
-    response = connection.execute(query10command).fetchall()
-    return str(response)
+def query10():
+    table10 = []
+    if request.method == 'POST':
+        return render_template('q10.html')
+    else:
+        table10 = makeTable10()
+        print (table10)
+        return render_template('q10.html', table10=table10)
+
+def makeTable10():
+    c = db.engine.connect()
+    rows = c.execute('SELECT "Users"."name" as "User with Most Reviews" FROM postgres.public."Users" ORDER BY "Users".review_count DESC LIMIT 1') 
+    return rows
 
 
 if __name__ == '__main__':

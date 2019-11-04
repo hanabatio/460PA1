@@ -1,0 +1,25 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<style>
+    th {
+      text-align: center;
+    }
+</style>
+
+<h2>Query 4</h2>
+<p>Display the names of all pizza restaurants that have a rating of 4 stars or above.</p>
+<table style="width:50%">
+<tr>
+    <th>business_name</th>
+  </tr>
+
+  {% for row in table4 %}
+    <tr>
+    <td>{{row[0]}}</td>
+    </tr>
+  {% endfor %}
+
+</table>
+
+{% endblock %}

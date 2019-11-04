@@ -1,0 +1,25 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<style>
+    th {
+      text-align: center;
+    }
+</style>
+
+<h2>Query 5</h2>
+<p>Display the number of stores that had at least one check-in on Friday.</p>
+<table style="width:50%">
+<tr>
+    <th>Number of Businesses</th>
+  </tr>
+
+  {% for row in table5 %}
+    <tr>
+    <td>{{row[0]}}</td>
+    </tr>
+  {% endfor %}
+
+</table>
+
+{% endblock %}
