@@ -42,18 +42,17 @@ def reviews():
 #ten queries
 @app.route('/q1', methods=['GET','POST'])
 def query1():
-    table = []
+    table1 = []
     if request.method == 'POST':
         return render_template('q1.html')
     else:
-        table = querie1()
-        print (table)
-        return render_template('q1.html', table=table)
+        table1 = querie1()
+        print (table1)
+        return render_template('q1.html', table1=table1)
 def querie1():
-    connection = db.engine.connect()
-    query1command = 'SELECT * FROM postgres.public."Users" WHERE (review_count >=1)'
-    response = connection.execute(query1command).fetchall()
-    return str(response)
+    c = db.engine.connect()
+    rows = c.execute('SELECT * FROM postgres.public."Users" WHERE (review_count >=1)')
+    return rows
     
 @app.route('/q2')
 def querie2():
