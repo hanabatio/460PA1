@@ -111,7 +111,7 @@ class newCheckInForm(FlaskForm):
     day_of_week = StringField('Day of the Week', validators=[DataRequired()])
     submit = SubmitField('Insert')
 
-class newSearch1Form(FlaskForm):
+class newSearchForm(FlaskForm):
     top_number = IntegerField('Top #', validators=[DataRequired()])
     category_finder = StringField('Type of Business', validators=[DataRequired()])
     submit = SubmitField('Search')

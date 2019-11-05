@@ -362,30 +362,14 @@ def makeTable10():
 
 #User Queries    
 
-@app.route('/searchresult1', methods= ['GET', 'POST'])
+@app.route('/searchresult', methods= ['GET', 'POST'])
 def search1():
-    form = newSearch1Form(request.form)
+    form = newSearchForm(request.form)
     if form.validate_on_submit():
-        table11 = []
-        if request.method == 'POST':
-            return render_template('searchresult1.html')
-        else:
-            table11 = makeTable11()
-            print (table11)
-            return render_template('searchresult1.html', table11=table11)
-        
-    def makeTable11():
         c = db.engine.connect()
         rows = c.execute('SELECT * FROM postgres.public."Business" WHERE (active = true) and (categories LIKE %s, ("%" + form.category_finder.data + "%")) ORDER BY "Business".review_count DESC LIMIT form.top_number.data')
-        return rows
-
-
-        flash(f'Search Found!','success')
-        return redirect(url_for('searchresult1.html'))
-
-
-    return render_template('searchresult1.html', title='Search Results' form=form)
-
+        return render_template('searchresult1.html', table11=rows)
+        
 
 
 if __name__ == '__main__':
