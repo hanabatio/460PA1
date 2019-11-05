@@ -7,12 +7,13 @@ from webapp import db
 
 
 Base = automap_base()
+Base.load(request.json, session=db.session)
 
 
 class Busines(Base):
     __tablename__ = 'Business'
     __table_args__ = {'extend_existing': True}
-    Busines.load(request.json, session=db.session)
+    #Busines.load(request.json, session=db.session)
 
     business_id = Column(String(10000), primary_key=True)
     active = Column(Boolean)
@@ -25,7 +26,7 @@ class Busines(Base):
 class User(Base):
     __tablename__ = 'Users'
     __table_args__ = {'extend_existing': True}
-    User.load(request.json, session=db.session)
+    #User.load(request.json, session=db.session)
 
     user_id = Column(String(10000), primary_key=True)
     name = Column(String(10000))
@@ -35,7 +36,7 @@ class User(Base):
 class Checkins(Base):
     __tablename__ = 'Checkins'
     __table_args__ = {'extend_existing': True}
-    Checkins.load(request.json, session=db.session)
+    #Checkins.load(request.json, session=db.session)
 
     business_id = Column(ForeignKey('Business.business_id'), primary_key=True)    
     sunday = Column(Integer)
@@ -50,7 +51,7 @@ class Checkins(Base):
 class Review(Base):
     __tablename__ = 'Reviews'
     __table_args__ = {'extend_existing': True}
-    Review.load(request.json, session=db.session)
+    #Review.load(request.json, session=db.session)
 
     review_id = Column(String(10000), primary_key=True)
     business_id = Column(ForeignKey('Business.business_id'))
