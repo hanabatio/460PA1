@@ -7,7 +7,6 @@ from webapp import db
 
 
 Base = automap_base()
-Base.load(request.json, session=db.session)
 
 
 class Busines(Base):
