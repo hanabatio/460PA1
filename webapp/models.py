@@ -9,6 +9,8 @@ from webapp import db
 Base = automap_base()
 
 
+
+
 class Busines(Base):
     __tablename__ = 'Business'
     __table_args__ = {'extend_existing': True}
