@@ -10,7 +10,7 @@ class newUserForm(FlaskForm):
     submit = SubmitField('Insert')
 
     def validate_userid(self, uid):
-        user = User.query.filter_by(user_id=uid.data)
+        user = db.session.query(User).filter_by(user_id=uid.data)
         if user:
             raise ValidationError("User ID already exists.")
 
@@ -19,7 +19,7 @@ class deleteUserForm(FlaskForm):
     submit = SubmitField('Insert')
 
     def validate_userid(self, uid):
-        user = User.query.filter_by(user_id=uid.data)
+        user = db.session.query(User).filter_by(user_id=uid.data)
         if  not user:
             raise ValidationError("User ID does not exist.")
 
@@ -30,7 +30,7 @@ class updateUserForm(FlaskForm):
     submit = SubmitField('Insert')
 
     def validate_userid(self, uid):
-        user = User.query.filter_by(user_id=uid.data)
+        user = db.session.query(User).filter_by(user_id=uid.data)
         if  not user:
             raise ValidationError("User ID does not exist.")
 
@@ -45,7 +45,7 @@ class newBusinessForm(FlaskForm):
     submit = SubmitField('Insert')
 
     def validate_business_id(self, bid):
-        business = Busines.query.filter_by(business_id=bid.data)
+        business = db.session.query(Busines).filter_by(business_id=bid.data)
         if business:
             raise ValidationError("Business ID already Exists")
 
@@ -54,7 +54,7 @@ class deleteBusinessForm(FlaskForm):
     submit = SubmitField('Insert')
 
     def validate_business_id(self, bid):
-        business = Busines.query.filter_by(business_id=bid.data)
+        business = db.session.query(Busines).filter_by(business_id=bid.data)
         if  not business:
             raise ValidationError("Business ID does not exist.")
 
@@ -68,7 +68,7 @@ class updateBusinessForm(FlaskForm):
     submit = SubmitField('Insert')
 
     def validate_business_id(self, bid):
-        business = Busines.query.filter_by(business_id=bid.data)
+        business = db.session.query(Busines).filter_by(business_id=bid.data)
         if  not business:
             raise ValidationError("Business ID does not exist.")
 
@@ -82,7 +82,7 @@ class newReviewForm(FlaskForm):
     submit = SubmitField('Insert')
 
     def validate_review_id(self, rid):
-        review = Review.query.filter_by(review_id=rid.data)
+        review = db.session.query(Review).filter_by(review_id=rid.data)
         if review:
             raise ValidationError("Review ID already Exists")
 
@@ -91,7 +91,7 @@ class deleteReviewForm(FlaskForm):
     submit = SubmitField('Insert')
 
     def validate_review_id(self, rid):
-        review = Review.query.filter_by(review_id=rid.data)
+        review = db.session.query(Review).filter_by(review_id=rid.data)
         if  not review:
             raise ValidationError("Review ID does not exist.")
 
@@ -104,7 +104,7 @@ class updateReviewForm(FlaskForm):
     submit = SubmitField('Insert')
 
     def validate_review_id(self, rid):
-        review = Review.query.filter_by(review_id=rid.data)
+        review = db.session.query(Review).filter_by(review_id=rid.data)
         if  not review:
             raise ValidationError("Review ID does not exist.")
 

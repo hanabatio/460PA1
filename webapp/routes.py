@@ -36,7 +36,7 @@ def businessInsert():
 def businessDelete():
     form = deleteBusinessForm(request.form)
     if form.validate_on_submit():
-        Busines.query.filter_by(business_id=form.business_id.data).delete()
+        db.session.query(Busines).filter_by(business_id=form.business_id.data).delete()
         db.session.commit()
 
         flash(f'Businesss Deleted!','success')
@@ -47,7 +47,7 @@ def businessDelete():
 def businessUpdate():
     form = updateBusinessForm(request.form)
     if form.validate_on_submit():
-        business = Busines.query.filter_by(business_id=form.business_id.data)
+        business = db.session.query(Busines).filter_by(business_id=form.business_id.data)
         business.name=form.business_name.data
         business.review_count=form.review_count.data
         business.active=form.active.data
@@ -81,7 +81,7 @@ def userInsert():
 def userDelete():
     form = deleteUserForm(request.form)
     if form.validate_on_submit():
-        User.query.filter_by(user_id=form.userid.data).delete()
+        db.session.query(User).filter_by(user_id=form.userid.data).delete()
         db.session.commit()
 
         flash(f'User Deleted!','success')
@@ -92,7 +92,7 @@ def userDelete():
 def userUpdate():
     form = updateUserForm(request.form)
     if form.validate_on_submit():
-        user = User.query.filter_by(user_id=form.userid.data)
+        user = db.session.query(User).filter_by(user_id=form.userid.data)
         user.name=form.name.data
         user.review_count=form.review_count.data
         db.session.commit()
@@ -106,7 +106,7 @@ def userUpdate():
 def checkins():
     form = newCheckInForm(request.form)
     if form.validate_on_submit():
-        business=Checkins.query.filter_by(business_id=form.business_id.data)
+        business=db.session.query(Checkins).filter_by(business_id=form.business_id.data)
         days=["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
         if form.day_of_week.data not in days:
             flash(f'Invalid Day','failure')
@@ -185,7 +185,7 @@ def reviewsInsert():
 def reviewDelete():
     form = deleteReviewForm(request.form)
     if form.validate_on_submit():
-        Review.query.filter_by(review_id=form.review_id.data).delete()
+        db.session.query(Review).filter_by(review_id=form.review_id.data).delete()
         db.session.commit()
 
         flash(f'Review Deleted!','success')
@@ -196,7 +196,7 @@ def reviewDelete():
 def reviewUpdate():
     form = updateReviewForm(request.form)
     if form.validate_on_submit():
-        review = Review.query.filter_by(review_id=form.review_id.data)
+        review = db.session.query(Review).filter_by(review_id=form.review_id.data)
         review.user_id=form.userid.data
         review.business_id=form.business_id.data
         review.stars=form.stars.data
