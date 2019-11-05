@@ -4,6 +4,7 @@ from sqlalchemy import update
 from webapp.forms import *
 from webapp.models import *
 
+
 @app.route('/', methods= ['GET', 'POST'])
 def home():
     form = newQueryForm(request.form)
