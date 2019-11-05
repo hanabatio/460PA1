@@ -16,6 +16,7 @@ class newUserForm(FlaskForm):
 
 class deleteUserForm(FlaskForm):
     userid = StringField('User ID', validators=[DataRequired()])
+    submit = SubmitField('Insert')
 
     def validate_userid(self, uid):
         user = User.query.filter_by(user_id=uid.data)
@@ -50,6 +51,7 @@ class newBusinessForm(FlaskForm):
 
 class deleteBusinessForm(FlaskForm):
     business_id = StringField('Business ID', validators=[DataRequired()])
+    submit = SubmitField('Insert')
 
     def validate_business_id(self, bid):
         business = Busines.query.filter_by(business_id=bid.data)
@@ -86,6 +88,7 @@ class newReviewForm(FlaskForm):
 
 class deleteReviewForm(FlaskForm):
     review_id = StringField('Review ID', validators=[DataRequired()])
+    submit = SubmitField('Insert')
 
     def validate_review_id(self, rid):
         review = Review.query.filter_by(review_id=rid.data)
@@ -105,13 +108,12 @@ class updateReviewForm(FlaskForm):
         if  not review:
             raise ValidationError("Review ID does not exist.")
 
+class newQueryForm(FlaskForm):
+    top_number = IntegerField('Top #', validators=[DataRequired()])
+    category_finder = StringField('Type of Business', validators=[DataRequired()])
+    submit = SubmitField('Search')
 
 class newCheckInForm(FlaskForm):
     business_id = StringField('Business ID', validators=[DataRequired()])
     day_of_week = StringField('Day of the Week', validators=[DataRequired()])
     submit = SubmitField('Insert')
-
-class newSearchForm(FlaskForm):
-    top_number = IntegerField('Top #', validators=[DataRequired()])
-    category_finder = StringField('Type of Business', validators=[DataRequired()])
-    submit = SubmitField('Search')

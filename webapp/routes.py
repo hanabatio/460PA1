@@ -4,9 +4,14 @@ from sqlalchemy import update
 from webapp.forms import *
 from webapp.models import *
 
-@app.route('/')
+@app.route('/', methods= ['GET', 'POST'])
 def home():
-    return render_template('home.html')
+    form = newQueryForm(request.form)
+    if form.validate_on_submit():
+        c = db.engine.connect()
+        rows = c.execute('SELECT * FROM postgres.public."Business" WHERE (active = true) and (categories LIKE %s, ("%" + form.category_finder.data + "%")) ORDER BY "Business".review_count DESC LIMIT form.top_number.data')
+        return render_template('searchresult1.html', table11=rows)
+    return render_template('home.html', form=form)
 
 
 @app.route('/business')
@@ -360,15 +365,6 @@ def makeTable10():
     rows = c.execute('SELECT "Users"."name" as "User with Most Reviews" FROM postgres.public."Users" ORDER BY "Users".review_count DESC LIMIT 1') 
     return rows
 
-#User Queries    
-
-@app.route('/searchresult', methods= ['GET', 'POST'])
-def search1():
-    form = newSearchForm(request.form)
-    if form.validate_on_submit():
-        c = db.engine.connect()
-        rows = c.execute('SELECT * FROM postgres.public."Business" WHERE (active = true) and (categories LIKE %s, ("%" + form.category_finder.data + "%")) ORDER BY "Business".review_count DESC LIMIT form.top_number.data')
-        return render_template('searchresult1.html', table11=rows)
         
 
 
