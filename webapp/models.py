@@ -6,7 +6,6 @@ from webapp import db
 
 
 Base = automap_base()
-Base.prepare(db.engine, reflect = True)
 
 
 class Busines(Base):
@@ -55,3 +54,5 @@ class Review(Base):
     review_text = Column(String(100000))
 
     business = relationship('Busines')
+
+Base.prepare(db.engine, reflect = True)
