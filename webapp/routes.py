@@ -37,7 +37,8 @@ def businessInsert():
 def businessDelete():
     form = deleteBusinessForm(request.form)
     if form.validate_on_submit():
-        db.session.query(Busines).filter_by(business_id=form.business_id.data).delete()
+        temp = Busines.query.get(form.business_id.data)
+        db.session.delete(temp)
         db.session.commit()
 
         flash(f'Businesss Deleted!','success')
@@ -82,7 +83,8 @@ def userInsert():
 def userDelete():
     form = deleteUserForm(request.form)
     if form.validate_on_submit():
-        db.session.query(User).filter_by(user_id=form.userid.data).delete()
+        temp = User.query.get(form.user_id.data)
+        db.session.delete(temp)
         db.session.commit()
 
         flash(f'User Deleted!','success')
@@ -186,7 +188,8 @@ def reviewsInsert():
 def reviewDelete():
     form = deleteReviewForm(request.form)
     if form.validate_on_submit():
-        db.session.query(Review).filter_by(review_id=form.review_id.data).delete()
+        temp = Review.query.get(form.review_id.data)
+        db.session.delete(temp)
         db.session.commit()
 
         flash(f'Review Deleted!','success')
