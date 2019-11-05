@@ -1,7 +1,7 @@
 # 460PA1
 A Restaurant Review Database and WebApp
 
-Project Specs:
+<h1>Project Specs:</h1>
 
 Your web application should be able to connect to the database and retrieve data from <br>
 it. You can use the tools you are most comfortable with. The image has preinstalled the <br>
@@ -21,3 +21,6 @@ PostgreSQL system and a web server. The final deliverable is expected to: <br>
   • Have a web-based interface that will execute the queries of part 2 and visualize <br>
   the results. <br>
 </p>
+<h1>Functionality</h1>
+
+To use our application, you must install python, flask, flask-sqlalchemy, and flask-wtforms. You must also create a postgre sql database using the provided CSV files (or files of the same format).
