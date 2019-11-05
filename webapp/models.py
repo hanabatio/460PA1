@@ -7,7 +7,11 @@ from webapp import db
 
 
 Base = automap_base()
+<<<<<<< HEAD
 Base.load(request.json, session=db.session)
+=======
+Base.prepare(db.engine, reflect = True)
+>>>>>>> parent of a00cc5c... change prepare loc
 
 
 class Busines(Base):
@@ -60,5 +64,3 @@ class Review(Base):
     review_text = Column(String(100000))
 
     business = relationship('Busines')
-
-Base.prepare(db.engine, reflect = True)
