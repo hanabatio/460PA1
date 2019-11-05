@@ -1,5 +1,7 @@
 # 460PA1
-A Restaurant Review Database and WebApp
+A Restaurant Review Database and WebApp <br>
+Hana Batio - hbatio@bu.edu
+Juan Santana - jsanta21@bu.edu
 
 <h1>Project Specs:</h1>
 
@@ -23,4 +25,8 @@ PostgreSQL system and a web server. The final deliverable is expected to: <br>
 </p>
 <h1>Functionality</h1>
 
-To use our application, you must install python, flask, flask-sqlalchemy, and flask-wtforms. You must also create a postgre sql database using the provided CSV files (or files of the same format).
+To use our application, you must install python, flask, flask-sqlalchemy, and flask-wtforms. You must also create a postgre sql database using the provided CSV files (or files of the same format). <br>
+
+<h1>Design Choices</h1>
+
+We decided not to add functionality for deleting a Check-in as we did not think that it made logical sense given the set-up of our web app. As far as User Queries, we decided to only allow users to search for businesses within the app. An extension would be to add functionality for users to search for other users or reviews or businesses that they were interested in.
